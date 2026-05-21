@@ -2,15 +2,15 @@ import { About } from "./components/About";
 import { Certifications } from "./components/Certifications";
 import { Contact } from "./components/Contact";
 import { CTA } from "./components/CTA";
-import { Differentials } from "./components/Differentials";
 import { Footer } from "./components/Footer";
-import { GlobeSection } from "./components/GlobeSection";
 import { Header } from "./components/Header";
 import { Hero } from "./components/Hero";
-import { Process } from "./components/Process";
+import { MediaCenter } from "./components/MediaCenter";
+import { OperationalGallery } from "./components/OperationalGallery";
+import { OperationsNetwork } from "./components/OperationsNetwork";
+import { OperationsReal } from "./components/OperationsReal";
 import { Services } from "./components/Services";
 import { Stats } from "./components/Stats";
-import { Trust } from "./components/Trust";
 
 function App() {
   return (
@@ -18,14 +18,14 @@ function App() {
       <Header />
       <main>
         <Hero />
-        <About />
         <Stats />
-        <GlobeSection />
+        <OperationsNetwork />
+        <OperationsReal />
+        <OperationalGallery />
         <Services />
-        <Differentials />
-        <Process />
+        <About />
         <Certifications />
-        <Trust />
+        <MediaCenter />
         <CTA />
         <Contact />
       </main>

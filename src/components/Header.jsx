@@ -37,7 +37,7 @@ export function Header() {
           : "bg-transparent"
       }`}
     >
-      <div className="shell flex items-center justify-between py-4">
+      <div className="shell flex items-center justify-between py-3 sm:py-4">
         <Logo />
 
         <nav className="hidden items-center gap-8 lg:flex">
@@ -62,7 +62,7 @@ export function Header() {
 
         <button
           type="button"
-          className="inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-white lg:hidden"
+          className="inline-flex h-11 w-11 items-center justify-center rounded-[1.15rem] border border-white/10 bg-white/5 text-white lg:hidden"
           onClick={() => setIsOpen(true)}
           aria-label="Abrir menu"
         >
@@ -73,13 +73,13 @@ export function Header() {
       <AnimatePresence>
         {isOpen ? (
           <motion.div
-            className="fixed inset-0 z-50 bg-ink-950/95 px-4 backdrop-blur-xl lg:hidden"
+            className="fixed inset-0 z-50 bg-ink-950/95 px-5 backdrop-blur-xl lg:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
             <motion.div
-              className="panel mx-auto mt-4 flex min-h-[calc(100vh-2rem)] w-full max-w-lg flex-col p-6"
+              className="panel mx-auto mt-3 flex min-h-[calc(100vh-1.5rem)] w-full max-w-lg flex-col p-5"
               initial={{ y: 24, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: 24, opacity: 0 }}
@@ -97,12 +97,12 @@ export function Header() {
                 </button>
               </div>
 
-              <nav className="mt-10 flex flex-1 flex-col gap-4">
+              <nav className="mt-8 grid flex-1 grid-cols-2 gap-3">
                 {navigation.map((item, index) => (
                   <motion.a
                     key={item.href}
                     href={item.href}
-                    className="panel-soft px-5 py-4 text-base font-medium text-white/82"
+                    className="panel-soft flex min-h-[4.5rem] items-end px-4 py-4 text-sm font-medium text-white/82"
                     initial={{ opacity: 0, x: 18 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.05 }}
@@ -117,7 +117,7 @@ export function Header() {
                 href={buildWhatsAppUrl()}
                 target="_blank"
                 rel="noreferrer"
-                className="primary-button mt-8 w-full"
+                className="primary-button mt-6 w-full"
                 onClick={() => setIsOpen(false)}
               >
                 <MessageCircle size={18} />

@@ -13,7 +13,8 @@ export function Footer() {
         <div className="max-w-md">
           <Logo />
           <p className="mt-5 text-sm leading-7 text-white/58">
-            Transporte seguro, rápido e eficiente de cargas.
+            Portfólio operacional premium em transporte, distribuição e
+            armazenagem.
           </p>
         </div>
 

@@ -4,34 +4,43 @@ export const instagramUrl = "https://instagram.com/machado.transporte";
 
 export const navigation = [
   { label: "Home", href: "#home" },
-  { label: "Sobre", href: "#sobre" },
-  { label: "Números", href: "#numeros" },
+  { label: "Operações", href: "#operacoes" },
+  { label: "Galeria", href: "#galeria" },
   { label: "Serviços", href: "#servicos" },
-  { label: "Diferenciais", href: "#diferenciais" },
-  { label: "Processo", href: "#processo" },
+  { label: "Números", href: "#numeros" },
   { label: "Segurança", href: "#seguranca" },
+  { label: "Mídia", href: "#midia" },
   { label: "Contato", href: "#contato" },
 ];
 
+// Deixe uma URL relativa como "/media/hero-machado.mp4" quando quiser ativar o vídeo.
+export const heroVideoPath = "";
+
 export const heroHighlights = [
-  { label: "Transporte", icon: "truck" },
-  { label: "Logística", icon: "route" },
+  { label: "Frota pesada", icon: "truck" },
+  { label: "Carga monitorada", icon: "route" },
   { label: "Distribuição", icon: "boxes" },
   { label: "Armazenagem", icon: "warehouse" },
 ];
 
+export const heroSignals = [
+  { value: "MP4-ready", label: "hero preparado para vídeo de operação" },
+  { value: "Editorial", label: "linguagem cinematográfica e premium" },
+  { value: "Safari-safe", label: "mídia leve e estável sem 3D pesado" },
+];
+
 export const aboutPillars = [
   {
-    title: "Excelência operacional",
-    text: "Processos estruturados para garantir previsibilidade, performance e segurança em cada etapa da entrega.",
+    title: "Operação com presença real",
+    text: "Este portfólio foi pensado para mostrar frota, carregamentos, equipamentos e bastidores com estética premium e leitura clara para clientes B2B.",
   },
   {
-    title: "Comunicação transparente",
-    text: "Acompanhamento claro das operações com atendimento próximo e respostas rápidas para o seu time.",
+    title: "Conteúdo para comercial e marca",
+    text: "Estrutura pronta para receber vídeos, reels, fotos operacionais e materiais institucionais sem perder consistência visual.",
   },
   {
-    title: "Atendimento humanizado",
-    text: "Relacionamento B2B construído com compromisso, agilidade e foco em soluções sob medida para a rotina logística.",
+    title: "Logística vista de perto",
+    text: "A Machado Transportes ganha uma vitrine mais robusta para apresentar escala, segurança, organização de pátio e excelência operacional.",
   },
 ];
 
@@ -78,11 +87,166 @@ export const stats = [
   },
 ];
 
-export const coverageHighlights = [
-  "Atendimento em todo o território nacional",
-  "Frota preparada para diferentes rotas",
-  "Parcerias sólidas e estratégicas",
-  "Logística integrada e inteligente",
+export const monitoringHighlights = [
+  "Fluxos visuais simulando coletas, hubs e entregas com leveza e estabilidade.",
+  "Painel ideal para apresentar monitoramento, rastreio e coordenação operacional.",
+  "Animação premium compatível com Safari, GitHub Pages e dispositivos mobile.",
+  "Estrutura pronta para evoluir com mapas, fotos, vídeos e cases futuros.",
+];
+
+export const monitoringSignals = [
+  {
+    label: "Coletas em andamento",
+    value: "05 docas sincronizadas",
+  },
+  {
+    label: "Distribuição ativa",
+    value: "Sul, Sudeste e Centro-Oeste",
+  },
+  {
+    label: "Janelas críticas",
+    value: "monitoramento contínuo",
+  },
+];
+
+export const operationalCases = [
+  {
+    eyebrow: "Operações reais",
+    title: "Linha dedicada para corredores industriais e entregas com janela crítica.",
+    description:
+      "Card destaque preparado para receber vídeo MP4 de frota, carregamento ou viagem, com overlay premium e foco total em presença operacional.",
+    type: "video",
+    src: "",
+    poster: "",
+    theme: "haul",
+    layout: "lg:col-span-2 lg:row-span-2",
+    featured: true,
+    minHeight: "min-h-[18rem] sm:min-h-[24rem] lg:min-h-[42rem]",
+    tags: ["Carga fechada", "Operação dedicada", "Monitoramento ativo"],
+  },
+  {
+    eyebrow: "Equipamentos",
+    title: "Movimentação de cargas com empilhadeiras e apoio logístico especializado.",
+    description:
+      "Espaço ideal para vídeos curtos ou fotos premium de movimentação interna, clamp, docas e operação de armazenagem.",
+    type: "image",
+    src: "",
+    poster: "",
+    theme: "forklift",
+    minHeight: "min-h-[15.5rem] sm:min-h-[19rem] lg:min-h-[23rem]",
+    tags: ["Empilhadeiras", "Clamp", "Apoio industrial"],
+  },
+  {
+    eyebrow: "Distribuição",
+    title: "Saídas programadas, conferência e organização de embarques.",
+    description:
+      "Bloco pensado para mostrar a disciplina da expedição, a leitura de pátio e a organização visual da operação.",
+    type: "video",
+    src: "",
+    poster: "",
+    theme: "distribution",
+    minHeight: "min-h-[15.5rem] sm:min-h-[19rem] lg:min-h-[23rem]",
+    tags: ["Expedição", "Pátio", "Ritmo operacional"],
+  },
+  {
+    eyebrow: "Bastidores",
+    title: "Backstage operacional, equipe em ação e rotina logística vista por dentro.",
+    description:
+      "Faixa editorial para inserir um case horizontal, vídeo de bastidor, reels reaproveitados ou uma sequência fotográfica forte.",
+    type: "image",
+    src: "",
+    poster: "",
+    theme: "backstage",
+    layout: "lg:col-span-3",
+    minHeight: "min-h-[14.5rem] sm:min-h-[18rem] lg:min-h-[25rem]",
+    tags: ["Equipe", "Bastidores", "Portfólio de operação"],
+  },
+];
+
+export const galleryItems = [
+  {
+    title: "Caminhões em rota",
+    category: "Frota",
+    type: "image",
+    src: "",
+    theme: "haul",
+    layout: "lg:col-span-2",
+    minHeight: "min-h-[14rem] sm:min-h-[18rem] lg:min-h-[26rem]",
+  },
+  {
+    title: "Empilhadeiras",
+    category: "Equipamentos",
+    type: "image",
+    src: "",
+    theme: "forklift",
+    minHeight: "min-h-[13rem] sm:min-h-[16rem] lg:min-h-[18rem]",
+  },
+  {
+    title: "Carregamentos",
+    category: "Doca",
+    type: "image",
+    src: "",
+    theme: "loading",
+    minHeight: "min-h-[14rem] sm:min-h-[18rem] lg:min-h-[22rem]",
+  },
+  {
+    title: "Distribuição",
+    category: "Entrega",
+    type: "video",
+    src: "",
+    theme: "distribution",
+    layout: "lg:col-span-2",
+    minHeight: "min-h-[14rem] sm:min-h-[17rem] lg:min-h-[24rem]",
+  },
+  {
+    title: "Armazenagem",
+    category: "Hub",
+    type: "image",
+    src: "",
+    theme: "warehouse",
+    minHeight: "min-h-[13.5rem] sm:min-h-[17rem] lg:min-h-[20rem]",
+  },
+  {
+    title: "Bastidores",
+    category: "Equipe",
+    type: "video",
+    src: "",
+    theme: "backstage",
+    minHeight: "min-h-[14rem] sm:min-h-[18rem] lg:min-h-[22rem]",
+  },
+];
+
+export const mediaCenterItems = [
+  {
+    title: "Vídeos operacionais",
+    description:
+      "Espaço preparado para filmes de frota, carregamento, viagens, docas e grandes operações em MP4.",
+    type: "video",
+    src: "",
+    theme: "haul",
+    minHeight: "min-h-[14rem] sm:min-h-[17rem] lg:min-h-[22rem]",
+    tags: ["MP4", "Autoplay silencioso", "Cases"],
+  },
+  {
+    title: "Reels e cortes curtos",
+    description:
+      "Cards ideais para cortes de redes sociais, bastidores verticais, teasers e campanhas de marca empregadora.",
+    type: "video",
+    src: "",
+    theme: "backstage",
+    minHeight: "min-h-[14rem] sm:min-h-[17rem] lg:min-h-[22rem]",
+    tags: ["Reels", "Social", "Atualizações"],
+  },
+  {
+    title: "Imagens e acervo visual",
+    description:
+      "Biblioteca visual para fotos de caminhões, empilhadeiras, armazenagem, distribuição e rotina da equipe.",
+    type: "image",
+    src: "",
+    theme: "warehouse",
+    minHeight: "min-h-[14rem] sm:min-h-[17rem] lg:min-h-[22rem]",
+    tags: ["Fotos", "Acervo", "Comercial"],
+  },
 ];
 
 export const services = [
@@ -156,71 +320,12 @@ export const services = [
   },
 ];
 
-export const differentials = [
-  {
-    title: "Pontualidade",
-    text: "Entregas realizadas dentro dos prazos acordados.",
-    icon: "clock",
-  },
-  {
-    title: "Segurança",
-    text: "Operação com seguro de carga e empresa regularizada.",
-    icon: "shield",
-  },
-  {
-    title: "Transparência",
-    text: "Comunicação clara e acompanhamento das operações.",
-    icon: "message",
-  },
-  {
-    title: "Atendimento ágil",
-    text: "Retorno rápido para cotações e suporte operacional.",
-    icon: "speed",
-  },
-  {
-    title: "Estrutura logística",
-    text: "Equipe preparada para operações de diferentes portes.",
-    icon: "network",
-  },
-];
-
-export const processSteps = [
-  {
-    title: "Solicitação da cotação",
-    text: "Cliente informa origem, destino e detalhes da carga.",
-  },
-  {
-    title: "Coleta da mercadoria",
-    text: "Equipe agenda e realiza a coleta com organização e segurança.",
-  },
-  {
-    title: "Transporte e entrega",
-    text: "Entrega realizada dentro do prazo com acompanhamento operacional.",
-  },
-];
-
 export const certifications = [
   "RNTRC Regularizado",
   "Certificação ANTT ativa",
   "ISO 9001",
   "SSL de segurança no site",
   "Seguro de carga disponível",
-];
-
-// Estes depoimentos são placeholders e podem ser editados facilmente depois.
-export const testimonials = [
-  {
-    company: "Indústria do Sul",
-    text: "Empresas confiam na Machado Transportadora pela pontualidade e eficiência logística.",
-  },
-  {
-    company: "Distribuidora Nacional",
-    text: "Atendimento transparente e suporte rápido durante toda a operação.",
-  },
-  {
-    company: "Grupo de Alimentos",
-    text: "Operação estruturada para garantir segurança em todas as etapas da entrega.",
-  },
 ];
 
 export function buildWhatsAppUrl(
