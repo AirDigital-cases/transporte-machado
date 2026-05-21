@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useRef } from "react";
-import Globe from "react-globe.gl";
+import { useEffect, useRef, useState } from "react";
 import { Color } from "three";
 import { useElementSize } from "../hooks/useElementSize";
+import { GlobeVisualFallback } from "./GlobeVisualFallback";
 
 const hubs = [
   { name: "Manaus", lat: -3.119, lng: -60.021, size: 1.08 },
@@ -136,42 +136,127 @@ function createTexture() {
   return canvas.toDataURL("image/png");
 }
 
+function supportsGlobeRendering() {
+  if (
+    typeof window === "undefined" ||
+    typeof document === "undefined" ||
+    typeof HTMLCanvasElement === "undefined"
+  ) {
+    return false;
+  }
+
+  try {
+    const canvas = document.createElement("canvas");
+    const webgl2 =
+      typeof WebGL2RenderingContext !== "undefined"
+        ? canvas.getContext("webgl2")
+        : null;
+    const webgl =
+      canvas.getContext("webgl", {
+        antialias: true,
+        alpha: true,
+        powerPreference: "high-performance",
+      }) || canvas.getContext("experimental-webgl");
+
+    return Boolean(webgl2 || webgl);
+  } catch (error) {
+    console.error("WebGL support check failed:", error);
+    return false;
+  }
+}
+
 export default function GlobeCanvas() {
   const wrapperRef = useRef(null);
   const globeRef = useRef(null);
   const { width } = useElementSize(wrapperRef);
-
-  const texture = useMemo(() => createTexture(), []);
+  const [GlobeComponent, setGlobeComponent] = useState(null);
+  const [texture, setTexture] = useState(null);
+  const [mode, setMode] = useState("loading");
   const height = width >= 1024 ? 620 : width >= 768 ? 520 : 380;
 
   useEffect(() => {
-    if (!globeRef.current || !width) {
+    let isCancelled = false;
+
+    async function prepareGlobe() {
+      if (!supportsGlobeRendering()) {
+        if (!isCancelled) {
+          setMode("unsupported");
+        }
+        return;
+      }
+
+      try {
+        const textureUrl = createTexture();
+
+        if (!isCancelled) {
+          setTexture(textureUrl);
+        }
+
+        const module = await import("react-globe.gl");
+
+        if (!isCancelled) {
+          setGlobeComponent(() => module.default);
+          setMode("ready");
+        }
+      } catch (error) {
+        console.error("Unable to load globe component safely:", error);
+
+        if (!isCancelled) {
+          setMode("error");
+        }
+      }
+    }
+
+    prepareGlobe();
+
+    return () => {
+      isCancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (
+      mode !== "ready" ||
+      !globeRef.current ||
+      !width ||
+      typeof window === "undefined"
+    ) {
       return;
     }
 
-    const globe = globeRef.current;
-    const controls = globe.controls();
+    try {
+      const globe = globeRef.current;
+      const controls = globe.controls();
 
-    controls.autoRotate = true;
-    controls.autoRotateSpeed = 0.42;
-    controls.enableZoom = false;
-    controls.enablePan = false;
-    controls.minDistance = width < 768 ? 300 : 360;
-    controls.maxDistance = width < 768 ? 300 : 360;
+      controls.autoRotate = true;
+      controls.autoRotateSpeed = 0.42;
+      controls.enableZoom = false;
+      controls.enablePan = false;
+      controls.minDistance = width < 768 ? 300 : 360;
+      controls.maxDistance = width < 768 ? 300 : 360;
 
-    const material = globe.globeMaterial();
-    material.color = new Color("#131313");
-    material.emissive = new Color("#2a0505");
-    material.emissiveIntensity = 0.78;
-    material.shininess = 14;
-    material.specular = new Color("#6d2712");
+      const material = globe.globeMaterial();
+      material.color = new Color("#131313");
+      material.emissive = new Color("#2a0505");
+      material.emissiveIntensity = 0.78;
+      material.shininess = 14;
+      material.specular = new Color("#6d2712");
 
-    globe.pointOfView(
-      { lat: -15, lng: -55, altitude: width < 768 ? 1.85 : 1.58 },
-      0,
-    );
-    globe.renderer().setPixelRatio(Math.min(window.devicePixelRatio, 1.65));
-  }, [width]);
+      globe.pointOfView(
+        { lat: -15, lng: -55, altitude: width < 768 ? 1.85 : 1.58 },
+        0,
+      );
+
+      const renderer = globe.renderer();
+
+      if (renderer) {
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.65));
+      }
+    } catch (error) {
+      console.error("Globe renderer setup failed, switching to fallback:", error);
+      setMode("error");
+    }
+  }, [mode, width]);
 
   return (
     <div
@@ -179,8 +264,8 @@ export default function GlobeCanvas() {
       className="relative min-h-[380px] overflow-hidden rounded-[1.75rem] border border-white/10 bg-[#080808] sm:min-h-[520px]"
     >
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(213,0,0,0.16),transparent_55%)]" />
-      {width ? (
-        <Globe
+      {mode === "ready" && width && GlobeComponent ? (
+        <GlobeComponent
           ref={globeRef}
           width={width}
           height={height}
@@ -214,7 +299,9 @@ export default function GlobeCanvas() {
           ringPropagationSpeed={1.8}
           ringRepeatPeriod={900}
         />
-      ) : null}
+      ) : (
+        <GlobeVisualFallback mode={mode} embedded />
+      )}
     </div>
   );
 }

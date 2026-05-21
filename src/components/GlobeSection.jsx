@@ -2,22 +2,12 @@ import { lazy, Suspense, useRef } from "react";
 import { useInView } from "framer-motion";
 import { CircleDot, Route } from "lucide-react";
 import { coverageHighlights } from "../data/siteContent";
+import { ErrorBoundary } from "./ErrorBoundary";
+import { GlobeVisualFallback } from "./GlobeVisualFallback";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
 
 const GlobeCanvas = lazy(() => import("./GlobeCanvas"));
-
-function GlobeFallback() {
-  return (
-    <div className="relative flex h-full min-h-[380px] items-center justify-center overflow-hidden rounded-[1.75rem] border border-white/10 bg-[#080808] sm:min-h-[520px]">
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:42px_42px]" />
-      <div className="absolute h-[62%] w-[62%] rounded-full border border-white/10" />
-      <div className="absolute h-[62%] w-[62%] animate-pulse-soft rounded-full bg-[radial-gradient(circle,rgba(213,0,0,0.18),transparent_62%)]" />
-      <div className="absolute h-[48%] w-[48%] rounded-full border border-brand-500/20" />
-      <div className="absolute h-[68%] w-[68%] rounded-full border border-brand-500/10" />
-    </div>
-  );
-}
 
 export function GlobeSection() {
   const globeRef = useRef(null);
@@ -67,15 +57,14 @@ export function GlobeSection() {
           <Reveal delay={0.15} className="w-full">
             <div ref={globeRef} className="relative">
               {isInView ? (
-                <Suspense fallback={<GlobeFallback />}>
-                  <GlobeCanvas />
-                </Suspense>
+                <ErrorBoundary fallback={<GlobeVisualFallback mode="error" />}>
+                  <Suspense fallback={<GlobeVisualFallback mode="loading" />}>
+                    <GlobeCanvas />
+                  </Suspense>
+                </ErrorBoundary>
               ) : (
-                <GlobeFallback />
+                <GlobeVisualFallback mode="idle" />
               )}
-              <div className="pointer-events-none absolute inset-x-8 bottom-8 rounded-full bg-black/40 px-4 py-2 text-center text-[0.7rem] uppercase tracking-[0.28em] text-white/52 backdrop-blur">
-                Rotas pelo Brasil com rotação contínua
-              </div>
             </div>
           </Reveal>
         </div>
