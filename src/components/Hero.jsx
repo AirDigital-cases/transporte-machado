@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
@@ -30,7 +31,14 @@ function Highlight({ label, icon }) {
 }
 
 export function Hero() {
-  const hasHeroVideo = Boolean(heroVideoPath);
+  const [hasVideoError, setHasVideoError] = useState(false);
+  const [isVideoReady, setIsVideoReady] = useState(false);
+  const heroVideoSrc = heroVideoPath
+    ? /^https?:\/\//.test(heroVideoPath)
+      ? heroVideoPath
+      : `${import.meta.env.BASE_URL}${heroVideoPath.replace(/^\/+/, "")}`
+    : "";
+  const shouldRenderVideo = Boolean(heroVideoSrc) && !hasVideoError;
 
   return (
     <section id="home" className="relative">
@@ -38,29 +46,39 @@ export function Hero() {
         <Reveal>
           <div className="panel relative overflow-hidden p-2.5 sm:p-4">
             <div className="relative min-h-[34rem] overflow-hidden rounded-[1.65rem] border border-white/10 bg-[#060606] sm:min-h-[42rem] sm:rounded-[1.9rem]">
-              {hasHeroVideo ? (
+              <img
+                src={heroTruck}
+                alt="Poster operacional da Machado Transportes"
+                className="absolute inset-0 h-full w-full object-cover object-[center_40%] sm:object-center"
+              />
+
+              {shouldRenderVideo ? (
                 <video
-                  className="absolute inset-0 h-full w-full object-cover object-center"
+                  className={`absolute inset-0 h-full w-full object-cover object-[center_40%] transition-opacity duration-700 sm:object-center ${
+                    isVideoReady ? "opacity-100" : "opacity-0"
+                  }`}
                   autoPlay
                   muted
                   loop
                   playsInline
                   preload="metadata"
                   poster={heroTruck}
+                  aria-hidden="true"
+                  onCanPlay={() => setIsVideoReady(true)}
+                  onError={() => {
+                    setHasVideoError(true);
+                    setIsVideoReady(false);
+                  }}
                 >
-                  {/* Troque heroVideoPath por um MP4 real em /public/media quando quiser ativar o vídeo de fundo. */}
-                  <source src={heroVideoPath} type="video/mp4" />
+                  <source src={heroVideoSrc} type="video/mp4" />
                 </video>
-              ) : (
-                <img
-                  src={heroTruck}
-                  alt="Poster operacional da Machado Transportes"
-                  className="absolute inset-0 h-full w-full object-cover object-center"
-                />
-              )}
+              ) : null}
 
-              <div className="absolute inset-0 bg-[linear-gradient(92deg,rgba(4,4,4,0.9)_0%,rgba(4,4,4,0.5)_42%,rgba(4,4,4,0.78)_100%)]" />
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(213,0,0,0.24),transparent_28%),radial-gradient(circle_at_78%_16%,rgba(255,155,87,0.18),transparent_22%),linear-gradient(180deg,rgba(255,255,255,0.03)_0%,transparent_100%)]" />
+              <div className="absolute inset-0 bg-black/52" />
+              <div className="absolute inset-0 bg-[linear-gradient(96deg,rgba(2,2,2,0.92)_0%,rgba(2,2,2,0.86)_34%,rgba(2,2,2,0.48)_58%,rgba(2,2,2,0.74)_100%)]" />
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_20%,rgba(213,0,0,0.34),transparent_24%),radial-gradient(circle_at_78%_14%,rgba(255,155,87,0.16),transparent_18%),radial-gradient(circle_at_52%_100%,rgba(0,0,0,0.66),transparent_36%),linear-gradient(180deg,rgba(255,255,255,0.03)_0%,transparent_100%)]" />
+              <div className="absolute -left-16 top-1/2 h-44 w-44 -translate-y-1/2 rounded-full bg-brand-500/12 blur-3xl sm:h-56 sm:w-56" />
+              <div className="absolute right-0 top-0 h-40 w-40 rounded-full bg-[#ff9b57]/10 blur-3xl sm:h-56 sm:w-56" />
               <div className="scan-sweep absolute inset-y-0 left-[-20%] w-[20%]" />
 
               <motion.div
@@ -132,8 +150,8 @@ export function Hero() {
                       <Radar size={16} className="text-white/38" />
                     </div>
                     <p className="mt-3 text-sm leading-6 text-white/66">
-                      Preparado para MP4 de fundo com autoplay silencioso, leitura
-                      limpa e estabilidade mobile.
+                      Vídeo operacional com fallback visual, leitura limpa e
+                      estabilidade mobile.
                     </p>
                   </div>
                 </div>
@@ -147,8 +165,8 @@ export function Hero() {
                       <Radar size={18} className="text-white/38" />
                     </div>
                     <p className="mt-4 text-sm leading-7 text-white/70 sm:text-base">
-                      Camada pronta para MP4 de fundo com autoplay silencioso,
-                      overlay premium e leitura segura em desktop, tablet e mobile.
+                      Banner com vídeo real da operação, overlay premium e fallback
+                      visual para manter legibilidade e estabilidade.
                     </p>
                   </div>
 

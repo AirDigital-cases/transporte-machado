@@ -13,8 +13,8 @@ export const navigation = [
   { label: "Contato", href: "#contato" },
 ];
 
-// Deixe uma URL relativa como "/media/hero-machado.mp4" quando quiser ativar o vídeo.
-export const heroVideoPath = "";
+// Arquivo servido via /public/media/hero/hero-banner.mp4.
+export const heroVideoPath = "media/hero/hero-banner.mp4";
 
 export const heroHighlights = [
   { label: "Frota pesada", icon: "truck" },
@@ -24,7 +24,7 @@ export const heroHighlights = [
 ];
 
 export const heroSignals = [
-  { value: "MP4-ready", label: "hero preparado para vídeo de operação" },
+  { value: "Vídeo real", label: "hero com banner operacional em MP4" },
   { value: "Editorial", label: "linguagem cinematográfica e premium" },
   { value: "Safari-safe", label: "mídia leve e estável sem 3D pesado" },
 ];
