@@ -23,12 +23,6 @@ export const heroHighlights = [
   { label: "Armazenagem", icon: "warehouse" },
 ];
 
-export const heroSignals = [
-  { value: "Vídeo real", label: "hero com banner operacional em MP4" },
-  { value: "Editorial", label: "linguagem cinematográfica e premium" },
-  { value: "Safari-safe", label: "mídia leve e estável sem 3D pesado" },
-];
-
 export const aboutPillars = [
   {
     title: "Operação com presença real",
