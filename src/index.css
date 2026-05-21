@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-ink-950 font-sans text-white antialiased;
+  background-image:
+    radial-gradient(circle at top left, rgba(213, 0, 0, 0.18), transparent 28%),
+    radial-gradient(circle at 85% 14%, rgba(255, 155, 87, 0.08), transparent 18%),
+    linear-gradient(180deg, #050505 0%, #0b0b0b 50%, #050505 100%);
+  min-height: 100vh;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: radial-gradient(circle at center, black, transparent 82%);
+  opacity: 0.65;
+  z-index: -1;
+}
+
+::selection {
+  background: rgba(213, 0, 0, 0.36);
+  color: white;
+}
+
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display;
+  }
+
+  a,
+  button,
+  input,
+  textarea {
+    @apply transition duration-300;
+  }
+}
+
+@layer components {
+  .shell {
+    @apply mx-auto w-full max-w-[90rem] px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-pad {
+    @apply py-20 sm:py-24 lg:py-28;
+  }
+
+  .panel {
+    @apply rounded-[2rem] border border-white/10 bg-white/5 shadow-panel backdrop-blur-xl;
+  }
+
+  .panel-soft {
+    @apply rounded-[1.5rem] border border-white/10 bg-white/[0.04] shadow-glow backdrop-blur-md;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full border border-brand-500/20 bg-brand-500/10 px-4 py-2 text-[0.7rem] font-semibold uppercase tracking-[0.28em] text-brand-400;
+  }
+
+  .primary-button {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-brand-400/30 bg-brand-500 px-6 py-3 text-sm font-semibold text-white shadow-[0_18px_40px_rgba(213,0,0,0.32)] hover:-translate-y-0.5 hover:bg-brand-400;
+  }
+
+  .secondary-button {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-white hover:-translate-y-0.5 hover:border-brand-400/30 hover:bg-white/[0.08];
+  }
+
+  .input-field {
+    @apply w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none placeholder:text-white/35 focus:border-brand-400/40 focus:bg-white/[0.07];
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
